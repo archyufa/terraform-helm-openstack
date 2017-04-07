@@ -1,0 +1,16 @@
+# Compiled files
+*.tfstate
+*.tfstate.backup
+terraform.tfvars
+terraform.tfstate*
+terraform.tfplan
+terraform/*/*.tfstate
+terraform/*/*terraform.tfvars
+terraform/*/terraform-provider-cloudca
+
+# Module directory
+.terraform/
+
+# Private keys
+id_rsa
+id_rsa.pub

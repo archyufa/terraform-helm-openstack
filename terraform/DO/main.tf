@@ -9,37 +9,7 @@ resource "digitalocean_ssh_key" "default" {
   public_key = "${file("${path.module}/../ssh/cluster.pem.pub")}"
 }
 
-# Create the bootstrap node
-resource "digitalocean_droplet" "bootstrap_node" {
-  image              = "${var.image}"
-  name               = "bootstrap-node"
-  region             = "${var.region}"
-  size               = "${var.droplet_size}"
-  ssh_keys           = ["${digitalocean_ssh_key.default.id}"]
-  tags               = ["${digitalocean_tag.cluster_tag.id}"]
-  private_networking = true
-
-  connection {
-    type        = "ssh"
-    private_key = "${file("${path.module}/../ssh/cluster.pem")}"
-    user        = "root"
-    timeout     = "2m"
-  }
-
-  provisioner "file" {
-    source      = "provision.sh"
-    destination = "/tmp/provision.sh"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "chmod +x /tmp/provision.sh",
-      "/tmp/provision.sh args",
-    ]
-  }
-}
-
-# Create the Kubernetes nodes (e.g. kube1)
+# Create the K8s node
 resource "digitalocean_droplet" "master_nodes" {
   count              = "${var.master_count}"
   image              = "${var.image}"
@@ -49,4 +19,18 @@ resource "digitalocean_droplet" "master_nodes" {
   ssh_keys           = ["${digitalocean_ssh_key.default.id}"]
   tags               = ["${digitalocean_tag.cluster_tag.id}"]
   private_networking = true
+
+  connection {
+    type        = "ssh"
+    private_key = "${file("${path.module}/../ssh/cluster.pem")}"
+    user        = "ubuntu"
+    timeout     = "2m"
+  }
+
+  provisioner "file" {
+    source      = "provision.sh"
+    destination = "/tmp/provision.sh"
+  }
+
 }
+

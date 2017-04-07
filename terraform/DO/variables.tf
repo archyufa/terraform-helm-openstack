@@ -32,21 +32,7 @@ variable droplet_size {
 }
 
 variable master_count {
-  description = "Number of k8s master droplets"
-  default     = 1
+  description = "Number of k8s droplets"
+  default     = 4
 }
 
-variable etcd_count {
-  description = "Number of etcd droplets"
-  default     = 1
-}
-
-variable worker_count {
-  description = "Number of k8s worker droplets"
-  default     = 1
-}
-
-variable ingress_count {
-  description = "Number of k8s ingress droplets"
-  default     = 1
-}
