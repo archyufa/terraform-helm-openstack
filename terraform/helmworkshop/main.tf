@@ -9,7 +9,7 @@ resource "cloudca_public_ip" "master_ip_endpoint" {
   vpc_id         = "${var.cloudca_vpc}"
 }
 
-# Create VM for Helm Nodes
+# cloudinit
 data "template_file" "cloudinit" {
   template = "${file("./cloudinit.tpl")}"
 }
