@@ -1,0 +1,6 @@
+- name: mount xfs
+  hosts: all
+  become: true
+
+  roles:
+    - xfs

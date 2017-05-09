@@ -1,0 +1,25 @@
+---
+#installation:
+- name: install docker and nfs common
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - nfs-common
+    - docker.io
+
+# Unmount nfs
+- name: Mount up device by label nfs-provisioner
+  mount:
+    name: /var/lib/nfs-provisioner
+    src: LABEL=nfsprov
+    fstype: xfs
+    state: unmounted
+
+# Unmount docker-srg
+- name: Mount up device by label docker-srg
+  mount:
+    name: /var/lib/docker
+    src: LABEL=docker-srg
+    fstype: xfs
+    state: unmounted

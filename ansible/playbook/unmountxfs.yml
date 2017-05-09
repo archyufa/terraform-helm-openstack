@@ -1,0 +1,6 @@
+- name: Unmount and clean
+  hosts: all
+  become: true
+
+  roles:
+    - unmountfs

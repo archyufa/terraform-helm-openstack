@@ -1,0 +1,53 @@
+---
+- name: filesystem xfs
+  filesystem: 
+    fstype: xfs
+    dev: /dev/xvdc
+    opts: -f -L nfsprov
+
+- name: ensure directory /var/lib/nfs-provisioner is existing
+  file:
+    state: directory
+    path: /var/lib/nfs-provisioner
+
+- name: Mount up device by label nfs-provisioner
+  mount:
+    name: /var/lib/nfs-provisioner
+    src: LABEL=nfsprov
+    fstype: xfs
+    state: mounted
+
+# mount docker-srg
+- name: filesystem xfs
+  filesystem: 
+    fstype: xfs
+    dev: /dev/xvdb
+    opts: -f -L docker-srg
+
+- name: ensure directory /var/lib/docker is existing
+  file:
+    state: directory
+    path: /var/lib/docker
+
+- name: Mount up device by label docker-srg
+  mount:
+    name: /var/lib/docker
+    src: LABEL=docker-srg
+    fstype: xfs
+    state: mounted
+
+#installation:
+- name: install docker and nfs common
+  package:
+    name: "{{ item }}"
+  with_items:
+    - nfs-common
+    - docker.io
+
+# User password
+
+- name: change default password for cca-User
+  user:
+    name: cca-user
+    password: "$6$j0.AUDXGrqCg$vdqZhls3rFtAbpBvHerOF9t6rJfd66XtoTLfN/J.8fjGDx1Qw1tOvuaawiUpTJAf/zfBwvuNOtix4kt5x7HNX."
+

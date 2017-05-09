@@ -1,0 +1,55 @@
+---
+#oremote shell
+- name: Copy script
+  copy:
+   src: /home/cca-user/helmconfig/playbook/start.sh
+   dest: /home/cca-user/start.sh
+
+- name: changing perm
+  file:
+     dest: /home/cca-user/start.sh
+     mode: a+x
+
+- name: Copy script
+  copy:
+   src: /home/cca-user/helmconfig/playbook/kubeadm-aio-launcher.sh
+   dest: /home/cca-user/openstack-helm/tools/kubeadm-aio/kubeadm-aio-launcher.sh
+
+- name: changing perm
+  file:
+     dest: /home/cca-user/openstack-helm/tools/kubeadm-aio/kubeadm-aio-launcher.sh
+     mode: a+x
+
+- name: run script
+  shell: /home/cca-user/start.sh >> .logs.txt
+
+#- name: Copy script
+#  copy:
+#   src: /home/cca-user/helmconfig/playbook/middle.sh
+#   dest: /home/cca-user/openstack-helm/middle.sh
+
+#- name: Copy script
+#  copy:
+#   src: /home/cca-user/helmconfig/playbook/end.sh
+#   dest: /home/cca-user/end.sh
+
+#- name: changing perm
+#  file:
+#     dest: /home/cca-user/openstack-helm/middle.sh
+#     mode: a+x
+
+#- name: changing perm
+#  file:
+#     dest: /home/cca-user/end.sh
+#     mode: a+x
+
+#- name: run script
+#  shell: /home/cca-user/openstack-helm/middle.sh >> log2.txt
+
+#- name: run script
+#  shell: /home/cca-user/end.sh >> log3.txt
+
+#- script: /home/cca-user/helmconfig/playbook/start.sh
+
+#- name: Execute the command in remote shell;
+#  shell: start.sh >> log.txt
