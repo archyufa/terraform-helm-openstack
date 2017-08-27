@@ -18,7 +18,7 @@ data "template_file" "cloudinit" {
 resource "cloudca_instance" node {
    environment_id         = "${var.environment_id}"
    count                  = "${var.vm_count}"
-   name                   = "${format("jenkins%1d", count.index + 1)}"
+   name                   = "${format("tata-user%1d", count.index + 1)}"
    network_id             = "${var.network_id}"
    template               = "${var.image_name}"
    compute_offering       = "${var.vm_flavor}"
