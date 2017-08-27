@@ -1,0 +1,6 @@
+- name: pull docker images
+  hosts: all
+  become: true
+
+  roles:
+    - end
