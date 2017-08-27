@@ -1,0 +1,28 @@
+---
+- name: ensure directory /var/lib/nfs-provisioner is existing
+  file:
+    state: directory
+    path: /var/lib/nfs-provisioner
+
+- name: ensure directory /var/lib/docker is existing
+  file:
+    state: directory
+    path: /var/lib/docker
+
+#installation:
+- name: install docker and nfs common
+  package:
+    name: "{{ item }}"
+  with_items:
+    - nfs-common
+    - docker.io
+    - make
+    - git
+
+# User password
+
+- name: change default password for cca-User
+  user:
+    name: cca-user
+    password: "$6$j0.AUDXGrqCg$vdqZhls3rFtAbpBvHerOF9t6rJfd66XtoTLfN/J.8fjGDx1Qw1tOvuaawiUpTJAf/zfBwvuNOtix4kt5x7HNX."
+
