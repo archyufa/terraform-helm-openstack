@@ -14,7 +14,7 @@ data "template_file" "cloudinit" {
   template = "${file("./cloudinit.tpl")}"
 }
 
-# Create VM for Helm Nodes
+# Create VM for Workshop Nodes
 resource "cloudca_instance" node {
    environment_id   = "${var.environment_id}"
    count            = "${var.vm_count}"
@@ -26,7 +26,7 @@ resource "cloudca_instance" node {
    user_data        = "${data.template_file.cloudinit.rendered}"
 }
 
-resource "cloudca_static_nat" "helmos_nat" {
+resource "cloudca_static_nat" "workshop_nat" {
    count              = "${var.vm_count}"
    environment_id     = "${var.environment_id}"
    public_ip_id       = "${element(cloudca_public_ip.master_ip_endpoint.*.id, count.index)}"
@@ -35,20 +35,4 @@ resource "cloudca_static_nat" "helmos_nat" {
 
 output "node_name" {
   value = "${cloudca_instance.node.name}"
-}
-
-resource "cloudca_volume" drive_1 {
-   environment_id = "${var.environment_id}"
-   count = "${var.vol1_count}"
-   name = "docker_${element(cloudca_instance.node.*.name, count.index)}"
-   disk_offering = "${var.vol1_size}"
-   instance_id   = "${element(cloudca_instance.node.*.id, count.index)}"
-}
-
-resource "cloudca_volume" drive_2 {
-   environment_id = "${var.environment_id}"
-   count = "${var.vol2_count}"
-   name = "nfsprovisioner_${element(cloudca_instance.node.*.name, count.index)}"
-   disk_offering = "${var.vol2_size}"
-   instance_id   = "${element(cloudca_instance.node.*.id, count.index)}"
 }

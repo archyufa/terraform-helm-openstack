@@ -20,7 +20,7 @@ variable cloudca_vpc {
 
 #OpenStack Helm nodes variables
 variable vm_count {
-  description = "Number of Helm Openstack VMs"
+  description = "Number of Workshop VMs"
   default     = 0
 }
 
@@ -39,23 +39,4 @@ variable vm_flavor {
   default     = "4vCPU.16GB"
 }
 
-#STORAGE part
-variable vol1_count {
-  description = "Number of volumes for Storage VM"
-  default     = 0
-}
-
-variable vol1_size {
-  description = "Size of Volumes for Persistant Storage"
-  default     = "20GB - 20 IOPS Min."
-}
-
-variable vol2_count {
-  description = "Number of volumes for Storage VM"
-  default     = 0
-}
-
-variable vol2_size {
-  description = "Size of Volumes for Persistant Storage"
-  default     = "50GB - 250 IOPS Min."
-}
+#STORAGE part has been removed due to root volume resize support
