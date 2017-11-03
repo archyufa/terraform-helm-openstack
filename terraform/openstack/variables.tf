@@ -7,7 +7,7 @@ variable flavor_id {}
 variable image_name {}
 
 # SSH settings
-variable ssh_user {}
+#variable ssh_user {}
 
 variable keypair_name {}
 
@@ -16,8 +16,8 @@ variable network_name {}
 
 variable secgroup_name {}
 
-variable assign_floating_ip {
-  default = false
-}
+#variable assign_floating_ip {
+#  default = false
+#}
 
-variable floating_ip_pool {}
+#variable floating_ip_pool {}

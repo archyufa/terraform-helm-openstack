@@ -1,7 +1,15 @@
-# cloudinit
-data "template_file" "cloudinit" {
-  template = "${file("./cloudinit.tpl")}"
+provider "openstack" {
+user_name   = "admin"
+tenant_name = "admin"
+password    = "5a6e549678436a797d7"
+auth_url    = "http://172.29.236.100:5000/v3"
+region      = "RegionOne"
+domain_name  = "Default"
 }
+## cloudinit
+#data "template_file" "cloudinit" {
+#  template = "${file("./cloudinit.tpl")}"
+#}
 
 
 # Create instances
@@ -18,7 +26,7 @@ resource "openstack_compute_instance_v2" "instance" {
   }
 
   security_groups = ["${var.secgroup_name}"]
-  user_data       = "${data.template_file.cloudinit.rendered}"
+#  user_data       = "${data.template_file.cloudinit.rendered}"
 }
 
 ## Allocate floating IPs (optional)
