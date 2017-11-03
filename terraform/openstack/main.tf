@@ -1,3 +1,9 @@
+# cloudinit
+data "template_file" "cloudinit" {
+  template = "${file("./cloudinit.tpl")}"
+}
+
+
 # Create instances
 resource "openstack_compute_instance_v2" "instance" {
   count       = "${var.count}"
@@ -12,19 +18,18 @@ resource "openstack_compute_instance_v2" "instance" {
   }
 
   security_groups = ["${var.secgroup_name}"]
-  user_data       = "${data.template_file.instance_bootstrap.rendered}"
+  user_data       = "${data.template_file.cloudinit.rendered}"
 }
 
-# Allocate floating IPs (optional)
-resource "openstack_compute_floatingip_v2" "floating_ip" {
-  count = "${var.assign_floating_ip ? var.count : 0}"
-  pool  = "${var.floating_ip_pool}"
-}
+## Allocate floating IPs (optional)
+#resource "openstack_compute_floatingip_v2" "floating_ip" {
+#  count = "${var.assign_floating_ip ? var.count : 0}"
+#  pool  = "${var.floating_ip_pool}"
+#}
 
 # Associate floating IPs (if created)
-resource "openstack_compute_floatingip_associate_v2" "floating_ip" {
-  count       = "${var.assign_floating_ip ? var.count : 0}"
-  floating_ip = "${element(openstack_compute_floatingip_v2.floating_ip.*.address, count.index)}"
-  instance_id = "${element(openstack_compute_instance_v2.instance.*.id, count.index)}"
-}
-
+#resource "openstack_compute_floatingip_associate_v2" "floating_ip" {
+#  count       = "${var.assign_floating_ip ? var.count : 0}"
+#  floating_ip = "${element(openstack_compute_floatingip_v2.floating_ip.*.address, count.index)}"
+#  instance_id = "${element(openstack_compute_instance_v2.instance.*.id, count.index)}"
+#}
