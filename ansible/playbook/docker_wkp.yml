@@ -1,0 +1,6 @@
+- name: install packages and set pwd
+  hosts: all
+  become: true
+
+  roles:
+    - dockerwkp
