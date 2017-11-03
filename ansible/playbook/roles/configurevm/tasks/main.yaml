@@ -24,5 +24,7 @@
 - name: change default password for cca-User
   user:
     name: cca-user
-    password: "$6$j0.AUDXGrqCg$vdqZhls3rFtAbpBvHerOF9t6rJfd66XtoTLfN/J.8fjGDx1Qw1tOvuaawiUpTJAf/zfBwvuNOtix4kt5x7HNX."
+#    password: "$6$j0.AUDXGrqCg$vdqZhls3rFtAbpBvHerOF9t6rJfd66XtoTLfN/J.8fjGDx1Qw1tOvuaawiUpTJAf/zfBwvuNOtix4kt5x7HNX."
+#    password: "$6$rounds=656000$LP8/Lou9gUYXMx3O$Ly9YiJqVu1SAsPI6pdu5g0qxz1nMJ.MlRJg1PC32leHrpBPfuwHWE8zrVxS9qkp/PqaMMdUQcVQOjW4UN8COI."
+    password: "$6$rounds=656000$8TVOMa.3fTEzp6CP$Rl6zQZjVUudwCHMQuyENVqKjpBG.OsougOriElSQCOm1C8ryqlM78aqsNUACvEq0gU9B9UWB15SzvPIQW8mYe."
 
